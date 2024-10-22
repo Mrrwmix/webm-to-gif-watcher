@@ -1,14 +1,15 @@
 #!/bin/bash
-export $(grep -v '^#' .env | xargs)
+CODE_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+export $(grep -v '^#' $CODE_DIRECTORY/.env | xargs)
 
-echo $FOLDER_WITH_WEBM
-echo $FOLDER_WITH_GIF
+echo $WEBM_DIRECTORY
+echo $GIF_DIRECTORY
 
-inotifywait -m $FOLDER_WITH_WEBM -e create -e moved_to |
+inotifywait -m $WEBM_DIRECTORY -e create -e moved_to |
     while read path action file; do
         echo "The file '$file' appeared in directory '$path' via '$action'"
         newWebmFile="$path$file"
-        gifOutputFile="$FOLDER_WITH_GIF${file%.*}.gif"
+        gifOutputFile="$GIF_DIRECTORY${file%.*}.gif"
         echo "$newWebmFile"
         echo "$gifOutputFile"
         ffmpeg -i "$newWebmFile" -pix_fmt rgb24 "$gifOutputFile"

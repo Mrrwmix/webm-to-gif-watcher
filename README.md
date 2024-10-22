@@ -11,6 +11,6 @@ A simple script that watches a directory for new webm files and converts them to
 ## .env setup
 
 ```
-FOLDER_WITH_WEBM=/path/to/webm/
-FOLDER_WITH_GIF=/path/to/gif/
+WEBM_DIRECTORY=/path/to/webm/
+GIF_DIRECTORY=/path/to/gif/
 ```
